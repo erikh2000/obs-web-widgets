@@ -1,6 +1,6 @@
 {
   "name": "obs-web-widgets",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "homepage": "/obs-web-widgets",
   "dependencies": {
