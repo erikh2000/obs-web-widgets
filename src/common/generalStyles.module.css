@@ -1,0 +1,31 @@
+/* I always forget this CSS module syntax:
+
+    composes: transparentBackgroundText from "../common/generalStyles.module.css"; */
+
+/* Use this style for text that appears directly over transparent background. Avoid applying to text that
+   appears over opaque background. */
+.transparentBackgroundText {
+    -webkit-font-smoothing: none;
+    text-shadow: /* Grey outline that helps to reduce jaggies. */
+        -.017rem -.017rem 0 #777,
+        0 -.017rem 0 #777,
+        .017rem -.017rem 0 #777,
+        .017rem 0 0 #777,
+        -.017rem 0 0 #777,
+        -.017rem .017rem 0 #777,
+        0 .017rem 0 #777,
+        .017rem .017rem 0 #777;
+}
+
+/* For avoiding the transparent styling being applied inappropriately to child elements. */
+.resetTransparentBackgroundText {
+    -webkit-font-smoothing: initial;
+    text-shadow: none;
+}
+
+.greyOutlineForRoundedBorders {
+    box-shadow:  -.017rem -.017rem 0 #777,
+    .017rem -.017rem 0 #777,
+    -.017rem .017rem 0 #777,
+    .017rem .017rem 0 #777;
+}

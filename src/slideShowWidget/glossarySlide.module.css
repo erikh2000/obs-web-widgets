@@ -1,0 +1,32 @@
+.container {
+    composes: resetTransparentBackgroundText from "../common/generalStyles.module.css";
+    composes: greyOutlineForRoundedBorders from "../common/generalStyles.module.css";
+    background-color: #fe9;
+    padding: 0.3rem;
+    border-radius: 2rem;
+    border-style: solid;
+    border-width: 0.2rem;
+    border-color: #750;
+}
+
+.container h1 {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    font-family: "Allerta Stencil", sans-serif;
+    font-weight: bolder;
+    font-size: 2rem;
+    text-align: center;
+    color: #fff8f1;
+    background-color: #c58a36;
+    border-radius: 2rem 2rem 0.5rem 0.5rem;
+    border-style: dotted;
+    border-color: #8b7f6d;
+    border-width: 0.1rem;
+}
+
+.container p {
+    font-family: "Alumni Sans", sans-serif;
+    font-size: 2rem;
+    padding-left: .8rem;
+    padding-right: .8rem;
+}
