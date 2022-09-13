@@ -2,6 +2,7 @@ import React from 'react';
 import SlideShowWidget from "slideShowWidget/SlideShowWidget";
 import SlideDeck from "slideShowWidget/SlideDeck";
 import GlossarySlide from "../slideShowWidget/glossarySlide";
+import styles from './DemoScreen.module.css';
 
 import { useEffect, useState } from 'react';
 
@@ -12,7 +13,7 @@ function _createSlideDeck() {
   return slideDeck;
 }
 
-function App() {
+function DemoScreen() {
   const [slideDeck, setSlideDeck] = useState<SlideDeck|null>(null);
   
   useEffect(() => {
@@ -22,10 +23,10 @@ function App() {
   if (!slideDeck) return null;
   
   return (
-    <div className="App">
+    <div className={styles.app}>
       <SlideShowWidget slideDeck={slideDeck}/>
     </div>
   );
 }
 
-export default App;
+export default DemoScreen;
