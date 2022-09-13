@@ -19,7 +19,7 @@ const SlideShowWidget = (props:IProps) => {
       setSlideNo(nextSlideNo);
     }, 8000);
     return () => clearTimeout(nextSlideTimeout);
-  }, [slideNo]);
+  }, [slideNo, slides]);
 
   if (!slides.length) return null;
   const slide = slides[slideNo];
