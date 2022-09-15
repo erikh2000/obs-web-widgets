@@ -1,0 +1,15 @@
+.container {
+    font-family: "Allerta Stencil", sans-serif;
+    font-weight: bolder;
+    font-size: 3rem;
+    padding: .2rem;
+    text-shadow: /* Grey outline that helps to reduce jaggies. */
+            -.3rem -.3rem 0 #fff,
+            0 -.3rem 0 #fff,
+            .3rem -.3rem 0 #fff,
+            .3rem 0 0 #fff,
+            -.3rem 0 0 #fff,
+            -.3rem .3rem 0 #fff,
+            0 .3rem 0 #fff,
+            .3rem .3rem 0 #fff;
+}

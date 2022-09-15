@@ -1,0 +1,2 @@
+export const MSECS_IN_SECOND = 1000;
+export const MSECS_IN_MINUTE = 60 * MSECS_IN_SECOND;
