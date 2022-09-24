@@ -1,3 +1,5 @@
+@value POP_ANIMATION_DURATION: 100ms;
+
 .container {
     composes: resetTransparentBackgroundText from "../common/generalStyles.module.css";
     composes: greyOutlineForRoundedBorders from "../common/generalStyles.module.css";
@@ -8,6 +10,9 @@
     border-width: 0.2rem;
     border-color: #750;
     height: 100%;
+    animation-name: popIn;
+    animation-duration: POP_ANIMATION_DURATION;
+    position: relative;
 }
 
 .container h1 {
@@ -30,4 +35,19 @@
     font-size: 2rem;
     padding-left: .8rem;
     padding-right: .8rem;
+}
+
+@keyframes popIn {
+    from { width: 0; height: 0; top: 50%; left: 50%}
+    to { width: 100%; height: 100%; top: 0; left: 0;}
+}
+
+@keyframes popOut {
+    from { width: 100%; height: 100%; top: 0; left: 0;}
+    to { width: 0; height: 0; top: 50%; left: 50%}
+}
+
+.changeSlide {
+    animation-name: popOut;
+    animation-duration: POP_ANIMATION_DURATION;
 }

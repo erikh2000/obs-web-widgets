@@ -1,15 +1,54 @@
 .container {
     font-family: "Allerta Stencil", sans-serif;
     font-weight: bolder;
-    font-size: 3rem;
+    font-size: 3em;
     padding: .2rem;
-    text-shadow: /* Grey outline that helps to reduce jaggies. */
-            -.3rem -.3rem 0 #fff,
-            0 -.3rem 0 #fff,
-            .3rem -.3rem 0 #fff,
-            .3rem 0 0 #fff,
-            -.3rem 0 0 #fff,
-            -.3rem .3rem 0 #fff,
-            0 .3rem 0 #fff,
-            .3rem .3rem 0 #fff;
+    text-shadow: 0 0 0.6rem #fff2e6, 0 0 1.5rem #ffa865,
+    -0.2rem 0.1rem 1rem #ff8e65, 0.2rem 0.1rem 1rem #ff8e65,
+    0 -0.5rem 2rem #ff8324, 0 0.5rem 3rem #ff8724;
+
+    background-image: radial-gradient(
+            ellipse 50% 35% at 50% 50%,
+            #6b1839,
+            transparent
+    );
+    letter-spacing: .2rem;
+    color: #ffe6ff;
+    animation: flicker 5s infinite;
+}
+
+/* Much thanks to Elisabeth Diang for the "Breathe" CSS animation effect upon which some of the code below is based. */
+
+@keyframes flicker {
+    0% { opacity: 1; }
+    4% { opacity: 0.92; }
+    6% { opacity: 0.85; }
+    8% { opacity: 0.95; }
+    10% { opacity: 0.97; }
+    11% { opacity: 0.92; }
+    12% { opacity: 0.93; }
+    14% { opacity: 0.95; }
+    16% { opacity: 0.98; }
+    17% { opacity: 0.94; }
+    19% { opacity: 0.93; }
+    20% { opacity: 0.99; }
+    24% { opacity: 1; }
+    26% { opacity: 0.94; }
+    28% { opacity: 0.98; }
+    37% { opacity: 0.93; }
+    38% { opacity: 0.95; }
+    39% { opacity: 0.96; }
+    42% { opacity: 1; }
+    44% { opacity: 0.97; }
+    46% { opacity: 0.94; }
+    56% { opacity: 0.91; }
+    58% { opacity: 0.93; }
+    60% { opacity: 0.99; }
+    68% { opacity: 1; }
+    70% { opacity: 0.92; }
+    72% { opacity: 0.95; }
+    93% { opacity: 0.93; }
+    95% { opacity: 0.95; }
+    97% { opacity: 0.93; }
+    100% { opacity: 1; }
 }

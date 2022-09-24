@@ -1,8 +1,10 @@
+import ISlide from 'slideShowWidget/ISlide';
+
 class SlideDeck {
-  slides:JSX.Element[] = [];
+  slides:ISlide[] = [];
   
-  add(slide:JSX.Element) {
-    this.slides.push(slide);
+  add(subject:string, description:string) {
+    this.slides.push({subject, description});
   }
   
   clear() {
