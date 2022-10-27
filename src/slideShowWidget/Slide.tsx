@@ -1,18 +1,18 @@
 import styles from './Slide.module.css';
-import ISlide from "slideShowWidget/ISlide";
 
 interface IProps {
   isChanging:boolean,
-  slide:ISlide
+  subject:string,
+  description:string
 }
 
 const Slide = (props:IProps) => {
-  const { isChanging, slide } = props;
+  const { isChanging, subject, description } = props;
   const containerClasses = isChanging ? `${styles.container} ${styles.changeSlide}` : styles.container;
   return (
     <div className={containerClasses}>
-      <h1>{isChanging ? '' : slide.subject}</h1>
-      <p>{isChanging ? '' : slide.description}</p>
+      <h1>{isChanging ? '' : subject}</h1>
+      <p>{isChanging ? '' : description}</p>
     </div>
   );
 };

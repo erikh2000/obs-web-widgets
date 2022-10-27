@@ -1,29 +1,31 @@
 import React from 'react';
 import SlideShowWidget from "slideShowWidget/SlideShowWidget";
-import SlideDeck from "slideShowWidget/SlideDeck";
 import styles from './DemoScreen.module.css';
+import { Spiel } from 'sl-spiel';
 
 import { useEffect, useState } from 'react';
 
-function _createSlideDeck() {
-  const slideDeck = new SlideDeck();
-  slideDeck.add('Refactoring', 'Improving the internal structure of code without changing what the code does.');
-  slideDeck.add('Unit Test', 'Code that tests that a function returns expected values with specified inputs.');
-  return slideDeck;
+function _createSpiel() {
+  const spiel = new Spiel();
+  spiel.createNode();
+  spiel.addDialogue('Refactoring: Improving the internal structure of code without changing what the code does.');
+  spiel.createNode();
+  spiel.addDialogue('Unit Test: Code that tests that a function returns expected values with specified inputs.');
+  return spiel;
 }
 
 function DemoScreen() {
-  const [slideDeck, setSlideDeck] = useState<SlideDeck|null>(null);
+  const [spiel, setSpiel] = useState<Spiel|null>(null);
   
   useEffect(() => {
-    setSlideDeck(_createSlideDeck());
+    setSpiel(_createSpiel());
   }, []);
   
-  if (!slideDeck) return null;
+  if (!spiel) return null;
   
   return (
     <div className={styles.app}>
-      <SlideShowWidget slideDeck={slideDeck}/>
+      <SlideShowWidget spiel={spiel}/>
     </div>
   );
 }
