@@ -13,7 +13,7 @@ async function _fetchMessages(url:string):Promise<string[]> {
   if (response.status !== 200) throw Error(`Failed to fetch messages - HTTP status ${response.status}`);
   const messagesObject = await response.json();
   if (!Array.isArray(messagesObject) || 
-    (messagesObject.length && typeof(messagesObject[0] !== 'string'))) {
+    (messagesObject.length && typeof(messagesObject[0]) !== 'string')) {
     throw Error(`Unexpected response format - ${JSON.stringify(messagesObject)}`);
   }
   return messagesObject as string[];

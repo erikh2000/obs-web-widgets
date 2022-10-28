@@ -11,6 +11,7 @@ function _createSpiel() {
   spiel.addDialogue('Refactoring: Improving the internal structure of code without changing what the code does.');
   spiel.createNode();
   spiel.addDialogue('Unit Test: Code that tests that a function returns expected values with specified inputs.');
+  spiel.addRootReply('shut up', 'Hey, be nice!');
   return spiel;
 }
 
