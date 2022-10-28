@@ -8,6 +8,17 @@ function _sendMessageToSubscribers(message:string, receiveSpeechCallbacks:(IRece
   });
 }
 
+async function _fetchMessages(url:string):Promise<string[]> {
+  const response = await fetch(url);
+  if (response.status !== 200) throw Error(`Failed to fetch messages - HTTP status ${response.status}`);
+  const messagesObject = await response.json();
+  if (!Array.isArray(messagesObject) || 
+    (messagesObject.length && typeof(messagesObject[0] !== 'string'))) {
+    throw Error(`Unexpected response format - ${JSON.stringify(messagesObject)}`);
+  }
+  return messagesObject as string[];
+}
+
 class SpeechPipeReceiver {
   receiveSpeechCallbacks:(IReceiveSpeechCallback|null)[];
   isListening:boolean;
@@ -20,15 +31,18 @@ class SpeechPipeReceiver {
       this.listenTimeout = null;
     }
     
-    fetch(this.stupidQueueUrl).then(response => {
-      return response.json();
-    }).then(messagesObject => {
-      if (this.isListening) {
-        const messages = messagesObject as string[];
-        messages.forEach(message => _sendMessageToSubscribers(message, this.receiveSpeechCallbacks));
-        this.listenTimeout = setTimeout(this._listenForSpeech, 0);
-      }
-    });
+    try {
+      _fetchMessages(this.stupidQueueUrl)
+        .then(messages => {
+          if (this.isListening) {
+            messages.forEach(message => _sendMessageToSubscribers(message, this.receiveSpeechCallbacks));
+            this.listenTimeout = setTimeout(this._listenForSpeech, 0);
+          }    
+        });
+    } catch(error) {
+      console.error(error);
+      this.isListening = false;
+    }
   }
   
   constructor(stupidQueueUrl:string) {
