@@ -26,7 +26,9 @@ const SlideShowWidget = (props:IProps) => {
   useEffect(() => {
     switch(slideState) {
       case SlideState.UNINITIALIZED:
-        startListeningForSpeech((message) => onReceiveSpeech(message, spiel, slideState, setPendingReply, setSlideState));
+        startListeningForSpeech(
+          (message) => onReceiveSpeech(message, spiel, slideState, setPendingReply, setSlideState)
+          );
         updateSubjectAndDescriptionFromNode(spiel.currentNode, setSubject, setDescription);
         setSlideState(SlideState.WAITING_FOR_SLIDE_CHANGE);
         break;

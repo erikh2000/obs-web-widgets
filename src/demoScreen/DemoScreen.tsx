@@ -2,24 +2,20 @@ import React from 'react';
 import SlideShowWidget from "slideShowWidget/SlideShowWidget";
 import styles from './DemoScreen.module.css';
 import { Spiel } from 'sl-spiel';
+import SpielReceiver from "common/SpielReceiver";
 
 import { useEffect, useState } from 'react';
 
-function _createSpiel() {
-  const spiel = new Spiel();
-  spiel.createNode();
-  spiel.addDialogue('Refactoring: Improving the internal structure of code without changing what the code does.');
-  spiel.createNode();
-  spiel.addDialogue('Unit Test: Code that tests that a function returns expected values with specified inputs.');
-  spiel.addRootReply('shut up', 'Hey, be nice!');
-  return spiel;
-}
+const SPIEL_URL = 'http://localhost:3000/obs-web-widgets/spiels/default.yml';
+let spielReceiver:SpielReceiver|null = null;
 
 function DemoScreen() {
   const [spiel, setSpiel] = useState<Spiel|null>(null);
   
   useEffect(() => {
-    setSpiel(_createSpiel());
+    if (spielReceiver) return;
+    spielReceiver = new SpielReceiver(SPIEL_URL, setSpiel);
+    spielReceiver.startListening();
   }, []);
   
   if (!spiel) return null;

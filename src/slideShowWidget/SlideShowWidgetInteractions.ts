@@ -1,7 +1,9 @@
 import SpeechPipeReceiver, {IReceiveSpeechCallback} from "common/SpeechPipeReceiver";
+import Cooldown from "common/Cooldown";
 import { Spiel, SpielNode, SpielReply } from 'sl-spiel';
 
-export const CHANGE_SLIDE_INTERVAL = 3000;
+export const MATCH_COOLDOWN_DURATION = 1000;
+export const CHANGE_SLIDE_INTERVAL = 6000;
 const STUPID_QUEUE_URL = 'http://localhost:3001/receive';
 
 export enum SlideState {
@@ -10,6 +12,7 @@ export enum SlideState {
   CHANGING_SLIDE
 }
 
+const matchCooldown = new Cooldown(MATCH_COOLDOWN_DURATION);
 let speechPipeReceiver:SpeechPipeReceiver|null = null; // This is not correctly scoped if you want a shared instance. In that case, pass in the instance as a prop and let a containing component manage the instance.
 
 type SubjectAndDescription = { subject:string, description:string }
@@ -60,7 +63,7 @@ export function updateSubjectAndDescriptionFromReply(reply:SpielReply|null, setS
 export function onReceiveSpeech(message:string, spiel:Spiel, slideState:SlideState, setPendingReply:any, setSlideState:any) {
   if (slideState === SlideState.CHANGING_SLIDE) return; // Don't interrupt an in-progress slide change.
   const reply = spiel.checkForMatch(message);
-  if (!reply) return;
+  if (!reply || !matchCooldown.activate()) return;
   setPendingReply(reply);
   setSlideState(SlideState.CHANGING_SLIDE);
 }

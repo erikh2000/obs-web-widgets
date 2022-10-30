@@ -8,6 +8,9 @@ dist
 docs/dist
 example/public/main.js
 
+# spiels
+public/spiels
+
 #
 # General-Purpose Exclusions
 #
