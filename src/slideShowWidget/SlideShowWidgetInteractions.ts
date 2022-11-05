@@ -8,8 +8,9 @@ const STUPID_QUEUE_URL = 'http://localhost:3001/receive';
 
 export enum SlideState {
   UNINITIALIZED,
+  POPPING_IN,
   WAITING_FOR_SLIDE_CHANGE,
-  CHANGING_SLIDE
+  POPPING_OUT
 }
 
 const matchCooldown = new Cooldown(MATCH_COOLDOWN_DURATION);
@@ -61,9 +62,9 @@ export function updateSubjectAndDescriptionFromReply(reply:SpielReply|null, setS
 }
 
 export function onReceiveSpeech(message:string, spiel:Spiel, slideState:SlideState, setPendingReply:any, setSlideState:any) {
-  if (slideState === SlideState.CHANGING_SLIDE) return; // Don't interrupt an in-progress slide change.
+  if (slideState !== SlideState.WAITING_FOR_SLIDE_CHANGE) return; // Don't interrupt an in-progress slide change.
   const reply = spiel.checkForMatch(message);
   if (!reply || !matchCooldown.activate()) return;
   setPendingReply(reply);
-  setSlideState(SlideState.CHANGING_SLIDE);
+  setSlideState(SlideState.POPPING_OUT);
 }

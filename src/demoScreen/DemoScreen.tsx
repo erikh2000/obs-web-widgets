@@ -21,7 +21,7 @@ function DemoScreen() {
   if (!spiel) return null;
   
   return (
-    <div className={styles.app}>
+    <div className={styles.App}>
       <SlideShowWidget spiel={spiel}/>
     </div>
   );

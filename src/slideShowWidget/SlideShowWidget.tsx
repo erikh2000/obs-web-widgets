@@ -3,14 +3,16 @@ import Slide from "slideShowWidget/Slide";
 import {
   CHANGE_SLIDE_INTERVAL,
   onReceiveSpeech,
+  SlideState,
   startListeningForSpeech,
   updateSubjectAndDescriptionFromNode,
-  updateSubjectAndDescriptionFromReply,
-  SlideState
+  updateSubjectAndDescriptionFromReply
 } from 'slideShowWidget/SlideShowWidgetInteractions';
-import { Spiel, SpielReply } from 'sl-spiel';
+import {Spiel, SpielReply} from 'sl-spiel';
 
-import {useState, useEffect} from 'react';
+import {useEffect, useState} from 'react';
+
+const POP_ANIMATION_DURATION = 1000; // Coupled to CSS animation-duration value.
 
 interface IProps {
   spiel:Spiel
@@ -30,17 +32,22 @@ const SlideShowWidget = (props:IProps) => {
           (message) => onReceiveSpeech(message, spiel, slideState, setPendingReply, setSlideState)
           );
         updateSubjectAndDescriptionFromNode(spiel.currentNode, setSubject, setDescription);
-        setSlideState(SlideState.WAITING_FOR_SLIDE_CHANGE);
+        setSlideState(SlideState.POPPING_IN);
         break;
+
+      case SlideState.POPPING_IN:
+        const completeFirstAnimationTimeout = setTimeout(() => {
+          setSlideState(SlideState.WAITING_FOR_SLIDE_CHANGE);
+        }, POP_ANIMATION_DURATION);
+        return () => clearTimeout(completeFirstAnimationTimeout);
         
       case SlideState.WAITING_FOR_SLIDE_CHANGE:
         const nextSlideTimeout = setTimeout(() => {
-          setSlideState(SlideState.CHANGING_SLIDE);
+          setSlideState(SlideState.POPPING_OUT);
         }, CHANGE_SLIDE_INTERVAL);
         return () => clearTimeout(nextSlideTimeout);
         
-      case SlideState.CHANGING_SLIDE:
-        const POP_ANIMATION_DURATION = 100; // Coupled to CSS animation-duration value.
+      case SlideState.POPPING_OUT:
         const completeAnimationTimeout = setTimeout(() => {
           if (pendingReply) {
             updateSubjectAndDescriptionFromReply(pendingReply, setSubject, setDescription);
@@ -49,7 +56,7 @@ const SlideShowWidget = (props:IProps) => {
             spiel.moveNextLooped();
             updateSubjectAndDescriptionFromNode(spiel.currentNode, setSubject, setDescription);
           }
-          setSlideState(SlideState.WAITING_FOR_SLIDE_CHANGE);
+          setSlideState(SlideState.POPPING_IN);
         }, POP_ANIMATION_DURATION);
         return () => clearTimeout(completeAnimationTimeout);
     }
@@ -57,10 +64,9 @@ const SlideShowWidget = (props:IProps) => {
   
   if (!spiel.currentNode) return null;
   
-  const isSlideChanging = slideState === SlideState.CHANGING_SLIDE; 
   return (
     <GreenBackground>
-      <Slide isChanging={isSlideChanging} subject={subject} description={description} />
+      <Slide slideState={slideState} subject={subject} description={description} />
     </GreenBackground>);
 }
 

@@ -1,4 +1,4 @@
-@value POP_ANIMATION_DURATION: 100ms;
+@value POP_ANIMATION_DURATION: 1000ms;
 
 .container {
     composes: resetTransparentBackgroundText from "../common/generalStyles.module.css";
@@ -30,11 +30,23 @@
     border-width: 0.1rem;
 }
 
-.container p {
-    font-family: "Alumni Sans", sans-serif;
-    font-size: 2rem;
+.descriptionPane {
     padding-left: .8rem;
     padding-right: .8rem;
+}
+
+.description {
+    font-family: "Alumni Sans", sans-serif;
+    font-size: 2rem;
+}
+
+.mouth {
+    background-image: url('images/billyMouth.png');
+    width: 7.5rem;
+    height: 3.6rem;
+    display: inline-block;
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
 }
 
 @keyframes popIn {
