@@ -1,0 +1,19 @@
+.container {
+    font-family: "Allerta Stencil", sans-serif;
+    font-weight: bolder;
+    font-size: 10em;
+    padding: .2rem;
+    text-shadow: 0 0 0.6rem #fff2e6, 0 0 1.5rem #ffa865,
+    -0.2rem 0.1rem 1rem #ff8e65, 0.2rem 0.1rem 1rem #ff8e65,
+    0 -0.5rem 2rem #ff8324, 0 0.5rem 3rem #ff8724;
+    
+    letter-spacing: .2rem;
+    color: #ffe6ff;
+    animation: flicker 5s infinite;
+}
+
+.letter {
+    width: 20%;
+    display: inline-block;
+    text-align: center;
+}

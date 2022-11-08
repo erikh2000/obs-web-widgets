@@ -2,7 +2,7 @@ import SpeechPipeReceiver, {IReceiveSpeechCallback} from "common/SpeechPipeRecei
 import Cooldown from "common/Cooldown";
 import { Spiel, SpielNode, SpielReply } from 'sl-spiel';
 
-export const MATCH_COOLDOWN_DURATION = 1000;
+export const MATCH_COOLDOWN_DURATION = 200;
 export const CHANGE_SLIDE_INTERVAL = 6000;
 const STUPID_QUEUE_URL = 'http://localhost:3001/receive';
 
@@ -62,7 +62,7 @@ export function updateSubjectAndDescriptionFromReply(reply:SpielReply|null, setS
 }
 
 export function onReceiveSpeech(message:string, spiel:Spiel, slideState:SlideState, setPendingReply:any, setSlideState:any) {
-  if (slideState !== SlideState.WAITING_FOR_SLIDE_CHANGE) return; // Don't interrupt an in-progress slide change.
+  if (slideState === SlideState.POPPING_OUT) return; // Don't interrupt an in-progress slide change.
   const reply = spiel.checkForMatch(message);
   if (!reply || !matchCooldown.activate()) return;
   setPendingReply(reply);

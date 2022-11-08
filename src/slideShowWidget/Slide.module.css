@@ -1,4 +1,4 @@
-@value POP_ANIMATION_DURATION: 1000ms;
+@value POP_ANIMATION_DURATION: 200ms;
 
 .container {
     composes: resetTransparentBackgroundText from "../common/generalStyles.module.css";

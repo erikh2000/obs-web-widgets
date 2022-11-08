@@ -12,7 +12,7 @@ import {Spiel, SpielReply} from 'sl-spiel';
 
 import {useEffect, useState} from 'react';
 
-const POP_ANIMATION_DURATION = 1000; // Coupled to CSS animation-duration value.
+const POP_ANIMATION_DURATION = 200; // Coupled to CSS animation-duration value.
 
 interface IProps {
   spiel:Spiel
